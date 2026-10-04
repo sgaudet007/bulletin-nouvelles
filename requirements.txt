@@ -1,0 +1,6 @@
+anthropic>=1.11
+feedparser>=6.0
+requests>=2.31
+edge-tts>=7.0
+mutagen>=1.47
+pyyaml>=6.0

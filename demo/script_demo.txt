@@ -1,0 +1,5 @@
+Bonjour, et bienvenue au Bulletin Gaudet. Ceci est un bulletin de démonstration.
+
+Dans une vraie édition, ce texte est rédigé chaque matin et chaque fin de journée à partir de l'analyse de l'actualité, puis lu par une voix québécoise. Il présente les manchettes, fait le tour des rubriques, et se termine par ce qu'il faut surveiller.
+
+C'était le Bulletin Gaudet. Bonne journée.

@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Bulletin</title>
+<link rel="icon" href="couverture.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --encre: #13233F;        /* bandeau et titres */
+  --papier: #F5F6F3;       /* fond de lecture */
+  --surface: #FFFFFF;
+  --texte: #1D2433;
+  --doux: #5A6478;
+  --trait: #D9DDE3;
+  --ondes: #F2A900;        /* voyant « en ondes » */
+  --ondes-texte: #13233F;
+  --bandeau-texte: #F5F6F3;
+  --r-quebec_canada: #2F6FB3;
+  --r-international: #2E8C7A;
+  --r-economie: #B4651C;
+  --r-droit: #7A4FA3;
+  --r-techno_ia: #C2425A;
+  --largeur: 1080px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --encre: #0E1A2F; --papier: #121822; --surface: #182130; --texte: #E6E9EF;
+    --doux: #9AA4B8; --trait: #2A3445; --bandeau-texte: #E6E9EF;
+    --r-quebec_canada: #6FA3DD; --r-international: #5CC0AB; --r-economie: #E39A55;
+    --r-droit: #B08AD6; --r-techno_ia: #E57B90;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--papier); color: var(--texte);
+  font-family: "Source Serif 4", Georgia, serif; font-size: 1.0625rem; line-height: 1.6;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ondes); outline-offset: 2px; border-radius: 3px; }
+.cadre { max-width: var(--largeur); margin: 0 auto; padding: 0 16px; }
+.sans { font-family: "Archivo", system-ui, sans-serif; }
+
+/* ── Bandeau ─────────────────────────────── */
+.bandeau { background: var(--encre); color: var(--bandeau-texte); }
+.bandeau-haut { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-top: 14px; padding-bottom: 14px; }
+.marque { font-family: "Archivo"; font-stretch: 75%; font-weight: 800; font-size: 1.25rem;
+  letter-spacing: .01em; display: flex; align-items: center; gap: 10px; margin: 0; white-space: nowrap; }
+.voyant { width: 10px; height: 10px; border-radius: 50%; background: var(--ondes);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ondes) 25%, transparent); }
+select.editions { font: 500 .9rem "Archivo"; color: var(--bandeau-texte); background: transparent;
+  border: 1px solid color-mix(in srgb, var(--bandeau-texte) 35%, transparent); border-radius: 6px;
+  padding: 6px 28px 6px 10px; max-width: 60vw; appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 15px) 55%, calc(100% - 10px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
+select.editions option { color: #13233F; }
+
+.une { padding-top: 28px; padding-bottom: 36px; }
+.une-date { font: 500 .95rem "Archivo"; opacity: .75; margin: 0 0 10px; }
+.une h2 { font-family: "Archivo"; font-stretch: 68%; font-weight: 750; line-height: 1.02;
+  font-size: clamp(2.1rem, 6vw, 3.9rem); margin: 0 0 18px; max-width: 22ch; text-wrap: balance; }
+.une-resume { font-size: 1.15rem; line-height: 1.6; max-width: 62ch; margin: 0 0 28px; opacity: .92; }
+
+/* ── Lecteur ─────────────────────────────── */
+.lecteur { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px;
+  background: color-mix(in srgb, var(--bandeau-texte) 8%, transparent);
+  border-radius: 14px; padding: 14px 18px; max-width: 720px; }
+.jouer { width: 56px; height: 56px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--ondes); color: var(--ondes-texte); display: grid; place-items: center; }
+.jouer svg { width: 22px; height: 22px; }
+.piste { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.piste-titre { font: 600 .95rem "Archivo"; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.barre { position: relative; height: 22px; cursor: pointer; touch-action: none; }
+.barre::before { content: ""; position: absolute; left: 0; right: 0; top: 9px; height: 4px; border-radius: 2px;
+  background: color-mix(in srgb, var(--bandeau-texte) 22%, transparent); }
+.barre-avance { position: absolute; left: 0; top: 9px; height: 4px; border-radius: 2px; background: var(--ondes); width: 0; }
+.temps { font: 500 .8rem "Archivo"; font-variant-numeric: tabular-nums; opacity: .75; display: flex; justify-content: space-between; }
+.lecteur-actions { display: flex; gap: 8px; }
+.bouton-discret { font: 600 .85rem "Archivo"; color: var(--bandeau-texte); background: transparent; cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--bandeau-texte) 35%, transparent); border-radius: 999px; padding: 6px 12px;
+  text-decoration: none; white-space: nowrap; }
+.sans-audio { font: 500 .95rem "Archivo"; opacity: .75; }
+
+/* ── À surveiller ────────────────────────── */
+.surveiller { padding-top: 30px; }
+.surveiller h3, .rubrique h3, .transcription summary { font-family: "Archivo"; font-stretch: 80%; font-weight: 750; }
+.surveiller h3 { font-size: 1.25rem; margin: 0 0 12px; }
+.surveiller ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.surveiller li { border-left: 3px solid var(--ondes); padding: 2px 0 2px 14px; font-size: 1rem; line-height: 1.5; }
+
+/* ── Filtres ─────────────────────────────── */
+.filtres { position: sticky; top: 0; z-index: 5; background: var(--papier); padding: 14px 0; margin-top: 26px;
+  border-bottom: 1px solid var(--trait); }
+.filtres-liste { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.filtre { font: 600 .9rem "Archivo"; padding: 7px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+  border: 1px solid var(--trait); background: var(--surface); color: var(--texte); display: inline-flex; align-items: center; gap: 8px; }
+.filtre .pastille { width: 9px; height: 9px; border-radius: 2px; background: var(--c, var(--doux)); }
+.filtre[aria-pressed="true"] { background: var(--texte); color: var(--papier); border-color: var(--texte); }
+
+/* ── Rubriques ───────────────────────────── */
+.rubrique { padding: 34px 0 6px; }
+.rubrique-tete { display: grid; grid-template-columns: 6px 1fr; gap: 16px; margin-bottom: 18px; }
+.rubrique-tete::before { content: ""; background: var(--c); border-radius: 3px; }
+.rubrique h3 { font-size: clamp(1.5rem, 3.2vw, 2rem); line-height: 1.1; margin: 0 0 8px; color: var(--c); }
+.synthese { margin: 0; color: var(--doux); max-width: 70ch; font-style: italic; }
+
+.nouvelle { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 18px 0;
+  border-top: 1px solid var(--trait); }
+.nouvelle:first-of-type { border-top: 0; }
+.nouvelle h4 { font-family: "Archivo"; font-weight: 650; font-stretch: 92%; font-size: 1.2rem; line-height: 1.25; margin: 0 0 6px; }
+.nouvelle p { margin: 0 0 8px; max-width: 70ch; }
+.portee { color: var(--doux); font-size: .98rem; }
+.portee strong { font-family: "Archivo"; font-weight: 650; font-size: .9rem; color: var(--texte); }
+.sources { font: 500 .85rem "Archivo"; color: var(--doux); display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; }
+.sources a { text-decoration-color: var(--trait); text-underline-offset: 3px; }
+.sources a:hover { color: var(--texte); text-decoration-color: currentColor; }
+
+/* Indicateur d'importance : barres de signal */
+.signal { display: flex; align-items: flex-end; gap: 3px; height: 26px; margin-top: 4px; }
+.signal span { width: 5px; border-radius: 1.5px; background: var(--trait); }
+.signal span:nth-child(1) { height: 20%; } .signal span:nth-child(2) { height: 40%; }
+.signal span:nth-child(3) { height: 60%; } .signal span:nth-child(4) { height: 80%; }
+.signal span:nth-child(5) { height: 100%; }
+.signal span.plein { background: var(--c); }
+
+/* ── Transcription et pied ───────────────── */
+.transcription { margin: 40px 0 0; border-top: 1px solid var(--trait); padding-top: 18px; }
+.transcription summary { cursor: pointer; font-size: 1.15rem; }
+.transcription div { white-space: pre-line; max-width: 68ch; color: var(--doux); margin-top: 12px; }
+.pied { font: 500 .85rem "Archivo"; color: var(--doux); padding: 40px 0 48px; }
+.message { padding: 60px 0; font-size: 1.1rem; }
+.demo { background: var(--ondes); color: #13233F; font: 600 .9rem "Archivo"; text-align: center; padding: 6px 16px; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0;
+  background: var(--texte); color: var(--papier); font: 600 .9rem "Archivo"; padding: 10px 16px; border-radius: 8px;
+  transition: opacity .2s, transform .2s; pointer-events: none; }
+.toast.visible { opacity: 1; transform: translate(-50%, 0); }
+[hidden] { display: none !important; }
+
+@media (max-width: 640px) {
+  .lecteur { grid-template-columns: auto 1fr; }
+  .lecteur-actions { grid-column: 1 / -1; }
+  .nouvelle { grid-template-columns: 30px 1fr; gap: 12px; }
+  .signal span { width: 4px; }
+  select.editions { max-width: 48vw; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="demo" id="banniere-demo" hidden>Aperçu avec des données de démonstration</div>
+<header class="bandeau">
+  <div class="cadre bandeau-haut">
+    <h1 class="marque"><span class="voyant" aria-hidden="true"></span><span id="nom">Bulletin</span></h1>
+    <label class="sans"><span hidden>Choisir une édition</span>
+      <select class="editions" id="editions" aria-label="Choisir une édition"></select>
+    </label>
+  </div>
+  <section class="cadre une" id="une" aria-live="polite">
+    <p class="une-date" id="libelle"></p>
+    <h2 id="manchette">Chargement de l'édition…</h2>
+    <p class="une-resume" id="resume"></p>
+    <div class="lecteur" id="lecteur" hidden>
+      <button class="jouer" id="jouer" aria-label="Écouter le bulletin">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path id="icone" d="M7 4.5v15l13-7.5z"/></svg>
+      </button>
+      <div class="piste">
+        <span class="piste-titre" id="piste-titre">Bulletin audio</span>
+        <div class="barre" id="barre" role="slider" tabindex="0" aria-label="Position dans le bulletin"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="barre-avance" id="avance"></div></div>
+        <div class="temps"><span id="ecoule">0:00</span><span id="total">0:00</span></div>
+      </div>
+      <div class="lecteur-actions">
+        <button class="bouton-discret" id="vitesse" aria-label="Vitesse de lecture">1×</button>
+        <button class="bouton-discret" id="abonner">Copier le lien du balado</button>
+      </div>
+      <audio id="audio" preload="metadata"></audio>
+    </div>
+    <p class="sans-audio" id="sans-audio" hidden>Le bulletin audio de cette édition n'est pas disponible.</p>
+  </section>
+</header>
+
+<main class="cadre">
+  <section class="surveiller" id="surveiller" hidden>
+    <h3>À surveiller</h3>
+    <ul id="surveiller-liste"></ul>
+  </section>
+  <nav class="filtres" aria-label="Rubriques"><div class="filtres-liste" id="filtres"></div></nav>
+  <div id="rubriques"></div>
+  <details class="transcription" id="transcription" hidden>
+    <summary>Texte du bulletin audio</summary>
+    <div id="script"></div>
+  </details>
+  <p class="pied" id="pied"></p>
+</main>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const precharge = window.__DONNEES__ || null;   // utilisé seulement pour l'aperçu
+  const etatVue = { rubrique: "tout", edition: null, config: null };
+
+  const echapper = (t) => String(t ?? "").replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const minutes = (s) => !isFinite(s) ? "0:00" : `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+
+  async function lireJSON(chemin) {
+    if (precharge) return precharge[chemin];
+    const r = await fetch(chemin, { cache: "no-cache" });
+    if (!r.ok) throw new Error(`${chemin} : ${r.status}`);
+    return r.json();
+  }
+
+  function toast(texte) {
+    const t = $("toast"); t.textContent = texte; t.classList.add("visible");
+    clearTimeout(toast.minuterie); toast.minuterie = setTimeout(() => t.classList.remove("visible"), 2400);
+  }
+
+  function signal(n) {
+    return `<div class="signal" role="img" aria-label="Importance ${n} sur 5">` +
+      [1, 2, 3, 4, 5].map((i) => `<span class="${i <= n ? "plein" : ""}"></span>`).join("") + "</div>";
+  }
+
+  function afficherFiltres(edition) {
+    const ids = edition.rubriques.filter((r) => r.nouvelles.length).map((r) => r);
+    const boutons = [{ id: "tout", nom: "Toutes les rubriques" }, ...ids];
+    $("filtres").innerHTML = boutons.map((r) =>
+      `<button class="filtre" data-r="${r.id}" style="--c: var(--r-${r.id})" aria-pressed="${r.id === etatVue.rubrique}">` +
+      (r.id === "tout" ? "" : `<span class="pastille" aria-hidden="true"></span>`) + `${echapper(r.nom)}</button>`).join("");
+    $("filtres").querySelectorAll(".filtre").forEach((b) => b.addEventListener("click", () => {
+      etatVue.rubrique = b.dataset.r;
+      $("filtres").querySelectorAll(".filtre").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      afficherRubriques(edition);
+    }));
+  }
+
+  function afficherRubriques(edition) {
+    const choix = edition.rubriques.filter((r) => r.nouvelles.length &&
+      (etatVue.rubrique === "tout" || r.id === etatVue.rubrique));
+    $("rubriques").innerHTML = choix.map((r) => {
+      const nouvelles = [...r.nouvelles].sort((a, b) => b.importance - a.importance);
+      return `<section class="rubrique" style="--c: var(--r-${r.id})" aria-labelledby="t-${r.id}">
+        <div class="rubrique-tete"><div><h3 id="t-${r.id}">${echapper(r.nom)}</h3>
+        ${r.synthese ? `<p class="synthese">${echapper(r.synthese)}</p>` : ""}</div></div>
+        ${nouvelles.map((n) => `<article class="nouvelle">
+          ${edition.mode === "secours" ? "<div></div>" : signal(n.importance)}
+          <div><h4>${echapper(n.titre)}</h4>${n.resume ? `<p>${echapper(n.resume)}</p>` : ""}
+          ${n.pourquoi_important ? `<p class="portee"><strong>Pourquoi c'est important.</strong> ${echapper(n.pourquoi_important)}</p>` : ""}
+          ${n.sources.length ? `<div class="sources">${n.sources.map((s) =>
+            `<a href="${echapper(s.url)}" target="_blank" rel="noopener">${echapper(s.nom)}</a>`).join("")}</div>` : ""}
+          </div></article>`).join("")}
+      </section>`;
+    }).join("") || `<p class="message">Aucune nouvelle dans cette rubrique pour cette édition.</p>`;
+  }
+
+  function afficherLecteur(edition) {
+    const audio = $("audio");
+    audio.pause();
+    if (!edition.audio) { $("lecteur").hidden = true; $("sans-audio").hidden = false; return; }
+    $("lecteur").hidden = false; $("sans-audio").hidden = true;
+    audio.src = `audio/${edition.audio.fichier}`;
+    $("piste-titre").textContent = edition.edition_libelle;
+    $("total").textContent = minutes(edition.audio.duree);
+    $("ecoule").textContent = "0:00"; $("avance").style.width = "0";
+    majIcone();
+  }
+
+  function majIcone() {
+    const enLecture = !$("audio").paused;
+    $("icone").setAttribute("d", enLecture ? "M6 4h4v16H6zM14 4h4v16h-4z" : "M7 4.5v15l13-7.5z");
+    $("jouer").setAttribute("aria-label", enLecture ? "Mettre en pause" : "Écouter le bulletin");
+  }
+
+  function brancherLecteur() {
+    const audio = $("audio"), barre = $("barre");
+    $("jouer").addEventListener("click", () => audio.paused ? audio.play() : audio.pause());
+    ["play", "pause", "ended"].forEach((e) => audio.addEventListener(e, majIcone));
+    audio.addEventListener("timeupdate", () => {
+      const p = audio.duration ? audio.currentTime / audio.duration * 100 : 0;
+      $("avance").style.width = `${p}%`; barre.setAttribute("aria-valuenow", Math.round(p));
+      $("ecoule").textContent = minutes(audio.currentTime);
+    });
+    audio.addEventListener("loadedmetadata", () => $("total").textContent = minutes(audio.duration));
+    const placer = (x) => {
+      const b = barre.getBoundingClientRect();
+      if (audio.duration) audio.currentTime = Math.min(1, Math.max(0, (x - b.left) / b.width)) * audio.duration;
+    };
+    barre.addEventListener("pointerdown", (e) => { placer(e.clientX); barre.setPointerCapture(e.pointerId); });
+    barre.addEventListener("pointermove", (e) => { if (e.buttons) placer(e.clientX); });
+    barre.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") audio.currentTime += 15;
+      if (e.key === "ArrowLeft") audio.currentTime -= 15;
+    });
+    const vitesses = [1, 1.25, 1.5, 0.9];
+    $("vitesse").addEventListener("click", () => {
+      const i = (vitesses.indexOf(audio.playbackRate) + 1) % vitesses.length;
+      audio.playbackRate = vitesses[i];
+      $("vitesse").textContent = `${String(vitesses[i]).replace(".", ",")}×`;
+    });
+    $("abonner").addEventListener("click", async () => {
+      const lien = new URL("feed.xml", location.href).href;
+      try { await navigator.clipboard.writeText(lien); toast("Lien du balado copié"); }
+      catch { prompt("Lien du balado à coller dans Pocket Casts :", lien); }
+    });
+  }
+
+  async function chargerEdition(id) {
+    const edition = await lireJSON(`data/editions/${id}.json`);
+    etatVue.edition = edition;
+    document.title = `${edition.edition_libelle} — ${etatVue.config.titre}`;
+    $("libelle").textContent = edition.edition_libelle;
+    $("manchette").textContent = edition.titre_edition;
+    $("resume").textContent = edition.resume_executif;
+    $("surveiller").hidden = !edition.a_surveiller.length;
+    $("surveiller-liste").innerHTML = edition.a_surveiller.map((s) => `<li>${echapper(s)}</li>`).join("");
+    if (!edition.rubriques.some((r) => r.id === etatVue.rubrique && r.nouvelles.length)) etatVue.rubrique = "tout";
+    afficherFiltres(edition);
+    afficherRubriques(edition);
+    afficherLecteur(edition);
+    $("transcription").hidden = !edition.script;
+    $("script").textContent = edition.script || "";
+    const maj = new Date(edition.date).toLocaleString("fr-CA", { dateStyle: "long", timeStyle: "short" });
+    $("pied").textContent = `Préparé le ${maj} à partir de ${edition.articles_analyses ?? "?"} articles. ` +
+      (edition.mode === "secours" ? "Mode de secours : manchettes sans analyse."
+        : "Analyse générée par IA : vérifie les sources avant de t'y fier.");
+    const url = new URL(location.href); url.searchParams.set("edition", id);
+    if (!precharge) history.replaceState(null, "", url);
+  }
+
+  async function demarrer() {
+    try {
+      const [config, etat] = await Promise.all([lireJSON("data/config.json"), lireJSON("data/etat.json")]);
+      etatVue.config = config;
+      $("nom").textContent = config.titre;
+      $("banniere-demo").hidden = !precharge;
+      if (!etat.editions.length) throw new Error("aucune édition");
+      $("editions").innerHTML = etat.editions.map((e) =>
+        `<option value="${echapper(e.id)}">${echapper(e.libelle)}</option>`).join("");
+      const demande = new URLSearchParams(location.search).get("edition");
+      const id = etat.editions.some((e) => e.id === demande) ? demande : etat.editions[0].id;
+      $("editions").value = id;
+      $("editions").addEventListener("change", (e) => chargerEdition(e.target.value));
+      brancherLecteur();
+      await chargerEdition(id);
+    } catch (err) {
+      $("manchette").textContent = "Aucune édition à afficher pour l'instant";
+      $("resume").textContent = "La première édition apparaîtra ici après la prochaine exécution du bulletin. " +
+        "Pour la lancer tout de suite : onglet Actions du dépôt GitHub, « Bulletin de nouvelles », puis « Run workflow ».";
+      console.error(err);
+    }
+  }
+  demarrer();
+})();
+</script>
+</body>
+</html>

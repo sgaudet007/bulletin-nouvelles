@@ -1,0 +1,111 @@
+{
+  "titre_edition": "Exemple : une rentrée parlementaire chargée et des marchés attentifs aux taux",
+  "resume_executif": "Ceci est une édition de démonstration : les nouvelles ci-dessous sont fictives et servent seulement à montrer l'apparence du tableau de bord. Dans une vraie édition, ce paragraphe résume en quelques phrases les trois ou quatre faits marquants de la période, toutes rubriques confondues. Il est rédigé à partir des articles collectés dans les fils RSS choisis.",
+  "a_surveiller": [
+    "Exemple : dépôt attendu d'un projet de loi en matière de logement locatif",
+    "Exemple : publication des données sur l'inflation en fin de semaine",
+    "Exemple : audience devant la Cour d'appel dans un dossier d'intérêt public",
+    "Exemple : annonce d'un nouveau modèle d'IA par un grand fabricant"
+  ],
+  "rubriques": [
+    {
+      "id": "quebec_canada",
+      "nom": "Québec et Canada",
+      "synthese": "Exemple de synthèse : la rubrique dégage la tendance de fond plutôt que de répéter les manchettes, par exemple la place du logement et du coût de la vie dans les débats.",
+      "nouvelles": [
+        {
+          "titre": "Exemple : Québec annonce une révision du cadre de fixation des loyers",
+          "resume": "Le gouvernement indique vouloir revoir la méthode de calcul des hausses de loyer. Les détails seraient précisés dans un projet de loi à venir.",
+          "pourquoi_important": "Une telle réforme aurait une incidence directe sur les dossiers de fixation de loyer devant le Tribunal administratif du logement.",
+          "importance": 5,
+          "sources": [{"nom": "Source de démonstration", "url": "https://example.com"}]
+        },
+        {
+          "titre": "Exemple : Ottawa présente sa mise à jour budgétaire d'automne",
+          "resume": "Le document prévoit de nouvelles mesures d'infrastructure et une révision des prévisions de croissance.",
+          "pourquoi_important": "Les prévisions fédérales orientent les attentes des marchés et des provinces pour l'année.",
+          "importance": 3,
+          "sources": [{"nom": "Source de démonstration", "url": "https://example.com"}]
+        }
+      ]
+    },
+    {
+      "id": "international",
+      "nom": "International",
+      "synthese": "Exemple de synthèse : les tensions commerciales et les négociations diplomatiques dominent la période.",
+      "nouvelles": [
+        {
+          "titre": "Exemple : reprise des pourparlers commerciaux entre partenaires nord-américains",
+          "resume": "Les négociateurs se réunissent de nouveau après plusieurs semaines d'impasse sur les droits de douane.",
+          "pourquoi_important": "L'issue des discussions pèse sur les exportateurs québécois et sur le dollar canadien.",
+          "importance": 4,
+          "sources": [{"nom": "Source de démonstration", "url": "https://example.com"}, {"nom": "Autre source", "url": "https://example.com"}]
+        },
+        {
+          "titre": "Exemple : sommet européen sur la sécurité énergétique",
+          "resume": "Les dirigeants discutent de stocks stratégiques et d'achats groupés.",
+          "pourquoi_important": "Les décisions peuvent influencer les prix mondiaux de l'énergie.",
+          "importance": 2,
+          "sources": [{"nom": "Source de démonstration", "url": "https://example.com"}]
+        }
+      ]
+    },
+    {
+      "id": "economie",
+      "nom": "Économie et finances",
+      "synthese": "Exemple de synthèse : les marchés attendent la prochaine décision de la banque centrale, alors que l'immobilier ralentit.",
+      "nouvelles": [
+        {
+          "titre": "Exemple : les ventes de propriétés reculent dans la région de Montréal",
+          "resume": "Les transactions sont en baisse sur un an, tandis que les prix demeurent stables.",
+          "pourquoi_important": "Un marché plus lent peut prolonger les délais de vente et modifier le rapport de force entre acheteurs et vendeurs.",
+          "importance": 3,
+          "sources": [{"nom": "Source de démonstration", "url": "https://example.com"}]
+        }
+      ]
+    },
+    {
+      "id": "droit",
+      "nom": "Droit et tribunaux",
+      "synthese": "Exemple de synthèse : la rubrique fait ressortir les décisions et réformes qui touchent la pratique, notamment en matière de copropriété et de logement.",
+      "nouvelles": [
+        {
+          "titre": "Exemple : la Cour d'appel précise les obligations du promoteur envers les acheteurs de condos",
+          "resume": "Dans un arrêt de démonstration, la Cour aurait clarifié l'étendue de l'obligation de renseignement lors de la vente sur plan.",
+          "pourquoi_important": "Une décision de ce type peut être invoquée dans les litiges entre acheteurs et promoteurs immobiliers.",
+          "importance": 5,
+          "sources": [{"nom": "Source de démonstration", "url": "https://example.com"}]
+        },
+        {
+          "titre": "Exemple : le Barreau lance une consultation sur l'usage de l'IA en pratique",
+          "resume": "Les membres sont invités à commenter un projet de lignes directrices.",
+          "pourquoi_important": "Les lignes directrices encadreront l'utilisation d'outils d'IA dans la préparation des dossiers.",
+          "importance": 3,
+          "sources": [{"nom": "Source de démonstration", "url": "https://example.com"}]
+        }
+      ]
+    },
+    {
+      "id": "techno_ia",
+      "nom": "IA et technologie",
+      "synthese": "Exemple de synthèse : les annonces de nouveaux modèles se multiplient, tout comme les débats sur leur encadrement.",
+      "nouvelles": [
+        {
+          "titre": "Exemple : un nouvel encadrement fédéral de l'intelligence artificielle est à l'étude",
+          "resume": "Un comité parlementaire entend des experts sur la transparence des systèmes d'IA.",
+          "pourquoi_important": "Les obligations envisagées toucheraient les entreprises qui déploient ces outils au Canada.",
+          "importance": 4,
+          "sources": [{"nom": "Source de démonstration", "url": "https://example.com"}]
+        },
+        {
+          "titre": "Exemple : panne majeure d'un service infonuagique",
+          "resume": "Plusieurs applications ont été perturbées pendant quelques heures.",
+          "pourquoi_important": "L'incident rappelle la dépendance des entreprises envers quelques fournisseurs.",
+          "importance": 2,
+          "sources": [{"nom": "Source de démonstration", "url": "https://example.com"}]
+        }
+      ]
+    }
+  ],
+  "articles_analyses": 0
+}

@@ -1,0 +1,86 @@
+name: Bulletin de nouvelles
+
+on:
+  schedule:
+    # Les heures GitHub sont en UTC. Deux déclenchements par édition couvrent
+    # l'heure avancée et l'heure normale; le programme ne garde que le bon.
+    - cron: "0 10,11 * * *"   # édition du matin (6 h à Montréal)
+    - cron: "0 20,21 * * *"   # édition de fin de journée (16 h à Montréal)
+  workflow_dispatch:
+    inputs:
+      edition:
+        description: "Édition à produire"
+        type: choice
+        options: [auto, matin, soir]
+        default: auto
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  actions: write   # pour garder l'horaire actif (voir l'étape « Garder l'horaire actif »)
+
+concurrency:
+  group: bulletin
+  cancel-in-progress: false
+
+jobs:
+  produire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      publie: ${{ steps.bulletin.outputs.publie }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Produire le bulletin
+        id: bulletin
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # seulement si fournisseur: "claude"
+          SITE_SECRET: ${{ secrets.SITE_SECRET }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            python -m bulletin --planifie
+          else
+            python -m bulletin --edition "${{ inputs.edition }}"
+          fi
+
+      # GitHub suspend les horaires d'un dépôt sans activité depuis 60 jours.
+      # Cette étape, exécutée une fois par semaine, remet le compteur à zéro.
+      - name: Garder l'horaire actif
+        if: steps.bulletin.outputs.publie == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$(date -u +%u)" = "1" ]; then
+            gh api -X PUT "repos/${{ github.repository }}/actions/workflows/bulletin.yml/enable"
+          fi
+
+      - name: Préparer la publication
+        if: steps.bulletin.outputs.publie == 'true'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: public
+
+  publier:
+    needs: produire
+    if: needs.produire.outputs.publie == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - name: Déployer sur GitHub Pages
+        id: deploiement
+        uses: actions/deploy-pages@v5

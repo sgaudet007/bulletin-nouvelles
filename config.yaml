@@ -1,0 +1,94 @@
+# ─────────────────────────────────────────────────────────────
+#  Configuration du Bulletin — modifiable directement sur GitHub
+# ─────────────────────────────────────────────────────────────
+
+# Nom du balado. C'est le nom que tu prononces dans Android Auto :
+# « Ok Google, fais jouer Bulletin Gaudet sur Pocket Casts ».
+# Choisis un nom court, facile à prononcer et unique.
+podcast:
+  titre: "Bulletin Gaudet"
+  auteur: "Samuel Gaudet"
+  description: "Mon bulletin de nouvelles personnalisé, préparé chaque matin et chaque fin de journée."
+  langue: "fr-ca"
+  episodes_conserves: 10        # nombre d'épisodes gardés dans le flux
+
+# Heures de production (heure de Montréal). Le bulletin est prêt
+# environ 5 à 20 minutes après l'heure indiquée.
+# Si tu changes ces heures, ajuste aussi les lignes « cron » dans
+# .github/workflows/bulletin.yml (voir le guide).
+editions:
+  matin:
+    heure: 6
+    duree_minutes: 7
+    consigne: >
+      Bulletin du matin : fais le tour complet de l'actualité de la nuit et de la veille,
+      puis indique ce qu'il faut surveiller aujourd'hui.
+  soir:
+    heure: 16
+    duree_minutes: 5
+    consigne: >
+      Bulletin de fin de journée : concentre-toi sur ce qui s'est passé depuis ce matin
+      et sur ce qui a évolué. Évite de répéter les nouvelles du matin sans élément nouveau.
+
+# Voix de synthèse (gratuite, accent québécois).
+# Choix fr-CA : fr-CA-SylvieNeural (femme), fr-CA-AntoineNeural,
+#               fr-CA-JeanNeural, fr-CA-ThierryNeural (hommes)
+voix:
+  nom: "fr-CA-SylvieNeural"
+  vitesse: "+5%"               # ex. "-5%", "+0%", "+10%"
+
+# Service d'IA utilisé pour l'analyse et la rédaction :
+#   "gemini" — palier gratuit de Google (par défaut, secret GEMINI_API_KEY)
+#   "claude" — API Claude, payante (secret ANTHROPIC_API_KEY)
+#   "aucun"  — sans IA : manchettes brutes, lues telles quelles
+# Si l'IA ne répond pas, le bulletin passe automatiquement en mode « aucun ».
+fournisseur: "gemini"
+
+gemini:
+  modele: "gemini-3.8-flash"
+  # Essayés dans l'ordre si le premier modèle est saturé ou retiré.
+  modeles_secours: ["gemini-3.5-flash", "gemini-3.5-flash-lite"]
+
+claude:
+  modele: "claude-sonnet-5-5"
+
+# Nombre maximal d'articles transmis à Claude par rubrique.
+articles_par_rubrique: 30
+
+# Rubriques et sources. Tu peux ajouter, retirer ou remplacer des fils RSS.
+# Un fil qui ne répond pas est simplement ignoré (voir le journal d'exécution).
+# Les fils « Google Actualités » regroupent plusieurs médias québécois et canadiens.
+rubriques:
+  - id: quebec_canada
+    nom: "Québec et Canada"
+    sources:
+      - https://news.google.com/rss/headlines/section/topic/NATION?hl=fr-CA&gl=CA&ceid=CA:fr
+      - https://news.google.com/rss/search?q=Assembl%C3%A9e+nationale+OR+%22gouvernement+du+Qu%C3%A9bec%22+when:1d&hl=fr-CA&gl=CA&ceid=CA:fr
+      - https://ici.radio-canada.ca/rss/4159
+
+  - id: international
+    nom: "International"
+    sources:
+      - https://news.google.com/rss/headlines/section/topic/WORLD?hl=fr-CA&gl=CA&ceid=CA:fr
+      - https://www.lemonde.fr/international/rss_full.xml
+      - https://feeds.bbci.co.uk/news/world/rss.xml
+
+  - id: economie
+    nom: "Économie et finances"
+    sources:
+      - https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=fr-CA&gl=CA&ceid=CA:fr
+      - https://news.google.com/rss/search?q=%22Banque+du+Canada%22+OR+inflation+OR+%22march%C3%A9+immobilier%22+when:1d&hl=fr-CA&gl=CA&ceid=CA:fr
+
+  - id: droit
+    nom: "Droit et tribunaux"
+    sources:
+      - https://news.google.com/rss/search?q=%22Cour+supr%C3%AAme+du+Canada%22+OR+%22Cour+d%27appel+du+Qu%C3%A9bec%22+OR+%22Cour+sup%C3%A9rieure%22+when:1d&hl=fr-CA&gl=CA&ceid=CA:fr
+      - https://news.google.com/rss/search?q=%22Tribunal+administratif+du+logement%22+OR+%22Barreau+du+Qu%C3%A9bec%22+OR+%22projet+de+loi%22+when:2d&hl=fr-CA&gl=CA&ceid=CA:fr
+      - https://www.droit-inc.com/rss
+
+  - id: techno_ia
+    nom: "IA et technologie"
+    sources:
+      - https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=fr-CA&gl=CA&ceid=CA:fr
+      - https://news.google.com/rss/search?q=%22intelligence+artificielle%22+when:1d&hl=fr-CA&gl=CA&ceid=CA:fr
+      - https://feeds.arstechnica.com/arstechnica/index
