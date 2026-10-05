@@ -31,7 +31,7 @@ def _schema(ids_rubriques: list[str]) -> dict:
     return {
         "type": "object",
         "properties": {
-            "titre_edition": {"type": "string", "description": "Manchette de l'édition, une phrase."},
+            "titre_edition": {"type": "string", "description": "Manchette de l'édition : une phrase de 12 mots au plus, sans date."},
             "resume_executif": {"type": "string", "description": "3 à 5 phrases sur l'essentiel de l'édition."},
             "a_surveiller": {
                 "type": "array",
@@ -88,7 +88,9 @@ Règles :
 - Si l'information est incomplète ou contradictoire entre les sources, dis-le.
 - Garde un ton neutre sur les sujets politiques; présente les positions sans prendre parti.
 - Pour chaque rubrique, retiens de 3 à 6 nouvelles, classées de la plus importante à la moins importante.
-- Dans la rubrique Droit, fais ressortir les décisions, les réformes et les incidences pour la pratique.
+- Dans la rubrique Droit, privilégie le droit québécois et canadien (tribunaux, lois, Barreau); \
+n'y retiens une nouvelle étrangère que si sa portée est majeure. Fais ressortir les décisions, \
+les réformes et les incidences pour la pratique.
 - Les titres sont rédigés par toi, pas copiés des médias."""
 
 
